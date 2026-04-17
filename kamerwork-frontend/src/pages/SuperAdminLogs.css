@@ -1,0 +1,401 @@
+/* SuperAdmin Logs Styling */
+
+.superadmin-logs {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.loading,
+.error-container,
+.no-logs {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.loading {
+  font-size: 18px;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.error-container {
+  border-left: 4px solid #ef4444;
+}
+
+.error-container h1 {
+  color: #ef4444;
+  margin-bottom: 20px;
+}
+
+.error-container p {
+  color: #666;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.no-logs {
+  color: #999;
+  font-size: 16px;
+}
+
+.logs-header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  color: white;
+  text-align: center;
+}
+
+.logs-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.logs-header .subtitle {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.filters-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+
+@media (max-width: 1024px) {
+  .filters-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-card,
+.export-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.filter-card h3,
+.export-card h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.filter-actions button {
+  flex: 1;
+}
+
+.btn-filter,
+.btn-export,
+.btn-reset {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-filter {
+  background: #667eea;
+  color: white;
+}
+
+.btn-filter:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-reset {
+  background: #f3f4f6;
+  color: #555;
+}
+
+.btn-reset:hover {
+  background: #e5e7eb;
+}
+
+.btn-export {
+  width: 100%;
+  background: #10b981;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.btn-export:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn-export.csv {
+  background: #f59e0b;
+}
+
+.btn-export.csv:hover {
+  background: #d97706;
+}
+
+.export-info {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #999;
+}
+
+.error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin: 0 auto 20px;
+  max-width: 1200px;
+}
+
+.error-message p {
+  margin: 0;
+}
+
+.logs-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  overflow-x: auto;
+}
+
+.logs-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.logs-table thead {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logs-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.logs-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.logs-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.logs-table tbody tr.status-success {
+  border-left: 3px solid #10b981;
+}
+
+.logs-table tbody tr.status-failed {
+  border-left: 3px solid #ef4444;
+}
+
+.logs-table tbody tr.status-error {
+  border-left: 3px solid #f59e0b;
+}
+
+.timestamp {
+  font-weight: 500;
+  color: #667eea;
+}
+
+.email {
+  color: #374151;
+  font-weight: 500;
+}
+
+.action-badge {
+  background: #e0e7ff;
+  color: #667eea;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge.status-success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.status-failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-badge.status-error {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.duration {
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: #666;
+  font-size: 12px;
+}
+
+.ip {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  color: #999;
+}
+
+.session code {
+  background: #f3f4f6;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 11px;
+  color: #666;
+}
+
+.details-preview,
+.error-preview {
+  color: #666;
+  font-size: 12px;
+  cursor: help;
+}
+
+.error-preview {
+  color: #ef4444;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .page-info {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 300px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .superadmin-logs {
+    padding: 20px 10px;
+  }
+
+  .logs-header h1 {
+    font-size: 24px;
+  }
+
+  .logs-table {
+    font-size: 11px;
+  }
+
+  .logs-table th,
+  .logs-table td {
+    padding: 8px 10px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination .page-info {
+    width: 100%;
+    order: 2;
+    margin: 10px 0;
+  }
+}

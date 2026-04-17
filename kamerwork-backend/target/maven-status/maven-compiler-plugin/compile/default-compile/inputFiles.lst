@@ -1,0 +1,14 @@
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\services\CaptchaService.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\services\JwtTokenProvider.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\dto\ForgotPasswordRequest.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\controllers\AuthController.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\dto\RegisterRequest.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\dto\ResetPasswordRequest.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\config\SecurityConfig.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\services\AuthService.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\dto\AuthResponse.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\models\User.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\repositories\UserRepository.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\services\EmailService.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\dto\LoginRequest.java
+C:\Users\Kemachi\Desktop\kamerwork\kamerwork-backend\src\main\java\com\kamerwork\Main.java
