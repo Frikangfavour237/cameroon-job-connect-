@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/auth")
@@ -50,18 +50,6 @@ public class AuthController {
         
         AuthResponse response = authService.forgotPassword(request, ipAddress, userAgent);
         return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<AuthResponse> resetPassword(@RequestBody ResetPasswordRequest request, HttpServletRequest httpRequest) {
-        String ipAddress = getClientIpAddress(httpRequest);
-        String userAgent = httpRequest.getHeader("User-Agent");
-        
-        AuthResponse response = authService.resetPassword(request, ipAddress, userAgent);
-        if (response.isSuccess()) {
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
     
     private String getClientIpAddress(HttpServletRequest request) {

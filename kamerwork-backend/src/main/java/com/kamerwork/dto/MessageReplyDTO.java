@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResetPasswordRequest {
-    private String email;
-    private String token;
-    private String newPassword;
+public class MessageReplyDTO {
+    private Long id;
+    private String sentAt;
+    private String body;
 }

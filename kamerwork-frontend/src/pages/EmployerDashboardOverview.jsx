@@ -1,5 +1,13 @@
 import React, { useMemo, useState } from "react";
 
+const TileIcon = ({ children }) => (
+  <span className="metric-card-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      {children}
+    </svg>
+  </span>
+);
+
 const initialPostings = [
   { id: 1, title: "Product Designer", location: "Yaoundé", type: "Full-time", deadline: "2026-05-15", status: "Active", applicants: 12 },
   { id: 2, title: "Frontend Engineer", location: "Douala", type: "Remote", deadline: "2026-04-30", status: "Active", applicants: 8 },
@@ -36,26 +44,44 @@ const EmployerDashboardOverview = () => {
           <h1>Welcome back, {fullName}</h1>
           <p>Monitor hiring activity, review incoming applicants, and keep your KamerWork recruitment workflow moving forward.</p>
         </div>
-        <button className="button-primary" type="button">Post new job</button>
       </section>
 
       <section className="dashboard-metrics">
-        <article className="metric-card">
+        <article className="metric-card metric-card--jobs">
+          <TileIcon>
+            <path d="M4.5 7.5h15v11h-15z" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M9 7.5V6.3A1.8 1.8 0 0 1 10.8 4.5h2.4A1.8 1.8 0 0 1 15 6.3v1.2" stroke="currentColor" strokeWidth="1.6" />
+          </TileIcon>
           <span>Active jobs</span>
           <strong>{metrics.active}</strong>
           <small>Live positions on KamerWork</small>
         </article>
-        <article className="metric-card">
+        <article className="metric-card metric-card--applicants">
+          <TileIcon>
+            <path d="M8.2 11.2a2.7 2.7 0 1 0-2.7-2.7 2.7 2.7 0 0 0 2.7 2.7Z" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M4.8 18.2c.8-2.6 2.4-4 3.9-4 1.5 0 3.1 1.4 3.9 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M15.8 11.2a2.7 2.7 0 1 0-2.7-2.7 2.7 2.7 0 0 0 2.7 2.7Z" stroke="currentColor" strokeWidth="1.6" />
+          </TileIcon>
           <span>Total applicants</span>
           <strong>{metrics.total}</strong>
           <small>Candidates in your pipeline</small>
         </article>
-        <article className="metric-card">
+        <article className="metric-card metric-card--views">
+          <TileIcon>
+            <path d="M2.8 12s2.9-5.2 9.2-5.2S21.2 12 21.2 12s-2.9 5.2-9.2 5.2S2.8 12 2.8 12Z" stroke="currentColor" strokeWidth="1.6" />
+            <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.6" />
+          </TileIcon>
           <span>Total views</span>
           <strong>{metrics.views}</strong>
           <small>Job and company page views</small>
         </article>
-        <article className="metric-card">
+        <article className="metric-card metric-card--conversion">
+          <TileIcon>
+            <path d="M5 18.5h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <rect x="6" y="11.5" width="2.8" height="7" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="10.6" y="8.5" width="2.8" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="15.2" y="5.5" width="2.8" height="13" rx="1" stroke="currentColor" strokeWidth="1.5" />
+          </TileIcon>
           <span>Conversion rate</span>
           <strong>{metrics.conversion}</strong>
           <small>Applications per active role</small>
@@ -132,15 +158,30 @@ const EmployerDashboardOverview = () => {
 
         <article className="overview-card">
           <div className="section-title">
-            <h2>Top applicants</h2>
-            <small>Recent candidate activity</small>
+            <h2>Recent applicants</h2>
+            <small>Review top candidates</small>
+          </div>
+          <div className="applicant-filter-row">
+            <input type="search" placeholder="Search applicants" aria-label="Search applicants" />
+            <select aria-label="Filter applicants">
+              <option>All statuses</option>
+              <option>New</option>
+              <option>Viewed</option>
+              <option>Contacted</option>
+              <option>Rejected</option>
+            </select>
           </div>
           <div className="applicant-row-list">
             {applicants.map((applicant) => (
               <div key={applicant.id} className="applicant-row">
-                <div>
-                  <strong>{applicant.name}</strong>
-                  <p>{applicant.job}</p>
+                <div className="applicant-row-left">
+                  <div className={`applicant-avatar ${applicant.status === "New" ? "avatar-green" : applicant.status === "Viewed" ? "avatar-teal" : "avatar-amber"}`}>
+                    {applicant.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+                  </div>
+                  <div>
+                    <strong>{applicant.name}</strong>
+                    <p>{applicant.job}</p>
+                  </div>
                 </div>
                 <div className="applicant-row-meta">
                   <span>{applicant.date}</span>

@@ -1,7 +1,7 @@
 // Audit logging service for frontend
 // Tracks user actions and sends them to backend for audit logging
 
-const API_BASE_URL = 'http://localhost:8081/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 class AuditLogService {
   constructor() {

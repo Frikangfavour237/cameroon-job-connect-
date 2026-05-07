@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResetPasswordRequest {
-    private String email;
-    private String token;
-    private String newPassword;
+public class EmployeeDocumentsDTO {
+    private FileSummaryDTO cv;
+    private FileSummaryDTO profilePicture;
 }

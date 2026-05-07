@@ -14,12 +14,40 @@ import EmployerCandidates from "./pages/EmployerCandidates";
 import EmployerInbox from "./pages/EmployerInbox";
 import EmployerProfile from "./pages/EmployerProfile";
 import EmployerSettings from "./pages/EmployerSettings";
+import EmployeeDashboard from "./pages/EmployeeDashboard";
 import SuperAdminLogin from "./pages/SuperAdminLogin";
 import SuperAdminLogs from "./pages/SuperAdminLogs";
 
+const normalizeRole = (role) => {
+  if (!role) {
+    return "EMPLOYEE";
+  }
+
+  return String(role).replace(/^ROLE_/, "").toUpperCase();
+};
+
+function HomeRoute() {
+  const token = localStorage.getItem("token");
+  const role = normalizeRole(localStorage.getItem("role"));
+
+  if (!token) {
+    return <LandingPage />;
+  }
+
+  if (role === "SUPERADMIN") {
+    return <Navigate to="/admin/logs" replace />;
+  }
+
+  if (role === "EMPLOYER") {
+    return <Navigate to="/employer-dashboard" replace />;
+  }
+
+  return <Navigate to="/employee-dashboard" replace />;
+}
+
 // Protected route for superadmin
 function ProtectedAdminRoute({ children }) {
-  const role = localStorage.getItem("role");
+  const role = normalizeRole(localStorage.getItem("role"));
   
   if (role !== "SUPERADMIN") {
     return <Navigate to="/admin/login" replace />;
@@ -48,7 +76,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<HomeRoute />} />
         <Route path="/login" element={<LoginWrapper />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPasswordWrapper />} />
@@ -74,6 +102,9 @@ function App() {
           <Route path="profile" element={<EmployerProfile />} />
           <Route path="settings" element={<EmployerSettings />} />
         </Route>
+
+        {/* Employee Routes */}
+        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
       </Routes>
     </Router>
   );

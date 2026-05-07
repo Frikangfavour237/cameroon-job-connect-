@@ -7,12 +7,12 @@ const jobList = [
 ];
 
 const EmployerJobs = () => (
-  <section className="overview-card">
+  <section className="overview-card jobs-page-card">
     <div className="section-title">
       <h2>Open jobs</h2>
       <small>Manage and update all active listings</small>
     </div>
-    <div className="jobs-list">
+    <div className="jobs-list jobs-list--full">
       {jobList.map((job) => (
         <div key={job.id} className="job-item">
           <div>

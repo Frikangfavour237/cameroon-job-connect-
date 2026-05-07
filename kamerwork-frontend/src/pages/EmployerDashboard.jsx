@@ -1,121 +1,140 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./EmployerDashboard.css";
 import auditLogService from "../services/auditLogService";
 
+const DashboardIcon = ({ children, className = "" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    {children}
+  </svg>
+);
+
+const IconDashboard = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M4 11.5L12 5l8 6.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M6.5 10.8V19h4.8v-4.6h1.4V19h4.8v-8.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </DashboardIcon>
+);
+
+const IconBriefcase = (props) => (
+  <DashboardIcon {...props}>
+    <rect x="4.5" y="7.5" width="15" height="11" rx="2.2" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M9 7.5V6.3A1.8 1.8 0 0 1 10.8 4.5h2.4A1.8 1.8 0 0 1 15 6.3v1.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M4.5 12h15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
+const IconUsers = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M8.2 11.2a2.7 2.7 0 1 0-2.7-2.7 2.7 2.7 0 0 0 2.7 2.7Zm7.6 0a2.7 2.7 0 1 0-2.7-2.7 2.7 2.7 0 0 0 2.7 2.7Z" stroke="currentColor" strokeWidth="1.7" />
+    <path d="M4.8 18.5c.7-2.6 2.4-4 3.9-4s3.1 1.4 3.9 4M12.5 18.5c.5-1.9 1.8-3 3-3 1.3 0 2.6 1.1 3.1 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+  </DashboardIcon>
+);
+
+const IconEye = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M2.8 12s2.9-5.2 9.2-5.2S21.2 12 21.2 12s-2.9 5.2-9.2 5.2S2.8 12 2.8 12Z" stroke="currentColor" strokeWidth="1.8" />
+    <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.8" />
+  </DashboardIcon>
+);
+
+const IconChart = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M5 18.5h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <rect x="6" y="11.5" width="2.8" height="7" rx="1" stroke="currentColor" strokeWidth="1.6" />
+    <rect x="10.6" y="8.5" width="2.8" height="10" rx="1" stroke="currentColor" strokeWidth="1.6" />
+    <rect x="15.2" y="5.5" width="2.8" height="13" rx="1" stroke="currentColor" strokeWidth="1.6" />
+  </DashboardIcon>
+);
+
+const IconInbox = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M4.5 7.5h15v9h-4.2l-1.3 2h-4l-1.3-2H4.5v-9Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    <path d="M8 11h8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
+const IconProfile = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M12 12.5a3.4 3.4 0 1 0-3.4-3.4A3.4 3.4 0 0 0 12 12.5Z" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M5.6 19c1.2-3 3.3-4.5 6.4-4.5S17.2 16 18.4 19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
+const IconSettings = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M12 8.2a3.8 3.8 0 1 0 3.8 3.8A3.8 3.8 0 0 0 12 8.2Z" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M12 4.8v2M12 17.2v2M6.9 6.9l1.4 1.4M15.7 15.7l1.4 1.4M4.8 12h2M17.2 12h2M6.9 17.1l1.4-1.4M15.7 8.3l1.4-1.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
+const IconSearch = (props) => (
+  <DashboardIcon {...props}>
+    <circle cx="11" cy="11" r="5.5" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M15 15l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
+const IconBell = (props) => (
+  <DashboardIcon {...props}>
+    <path d="M12 4.8a4.4 4.4 0 0 0-4.4 4.4v2.4c0 .8-.2 1.5-.6 2.2L6 15h12l-.9-1.2c-.4-.6-.6-1.4-.6-2.2V9.2A4.4 4.4 0 0 0 12 4.8Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+    <path d="M10 18a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+  </DashboardIcon>
+);
+
 const initialProfile = {
   companyName: localStorage.getItem("companyName") || "KamerWork Hiring",
-  logo: "KW",
   location: "Yaoundé, Cameroon",
 };
 
-const initialPostings = [
-  {
-    id: 1,
-    title: "Product Designer",
-    location: "Yaoundé",
-    type: "Full-time",
-    deadline: "2026-05-15",
-    status: "Active",
-    applicants: 12,
-  },
-  {
-    id: 2,
-    title: "Frontend Engineer",
-    location: "Douala",
-    type: "Remote",
-    deadline: "2026-04-30",
-    status: "Active",
-    applicants: 8,
-  },
-  {
-    id: 3,
-    title: "HR Business Partner",
-    location: "Bafoussam",
-    type: "Contract",
-    deadline: "2026-03-22",
-    status: "Expired",
-    applicants: 4,
-  },
-];
-
-const initialApplicants = [
-  {
-    id: 101,
-    name: "Fiona Etape",
-    job: "Product Designer",
-    date: "2026-04-08",
-    status: "New",
-    skills: "Figma, UX Research, Prototyping",
-    profile: "Senior Designer with 6 years experience building product flows for fintech and e-commerce.",
-    cvLink: "#",
-    coverLetter:
-      "I am excited to bring my design leadership to KamerWork. I have built interfaces for digital marketplaces and payments platforms.",
-  },
-  {
-    id: 102,
-    name: "Jean Claude",
-    job: "Frontend Engineer",
-    date: "2026-04-07",
-    status: "Viewed",
-    skills: "React, TypeScript, TailwindCSS",
-    profile: "Full-stack frontend engineer with experience in modern React apps and API-driven dashboards.",
-    cvLink: "#",
-    coverLetter:
-      "I’m eager to help your team deliver beautiful hiring experiences through polished interfaces and reliable workflows.",
-  },
-  {
-    id: 103,
-    name: "Hanna Mba",
-    job: "HR Business Partner",
-    date: "2026-04-05",
-    status: "Contacted",
-    skills: "Talent Acquisition, Employer Branding, Interviewing",
-    profile: "HR specialist who has supported hiring for engineering and marketing teams across Africa.",
-    cvLink: "#",
-    coverLetter:
-      "I bring strong employer branding and candidate management practices to help scale your recruitment efforts.",
-  },
-];
-
-const statusColors = {
-  New: "status-pill status-new",
-  Viewed: "status-pill status-viewed",
-  Contacted: "status-pill status-contacted",
-  Rejected: "status-pill status-rejected",
-};
-
 const sidebarItems = [
-  { title: "Dashboard", subtitle: "Overview", active: true },
-  { title: "Jobs", subtitle: "Open positions" },
-  { title: "Candidates", subtitle: "Applicant tracking" },
-  { title: "Profile", subtitle: "Company details" },
-  { title: "Settings", subtitle: "Account settings" },
+  { title: "Dashboard", subtitle: "Overview", icon: IconDashboard, to: "/employer-dashboard", end: true },
+  { title: "Jobs", subtitle: "Open positions", icon: IconBriefcase, to: "/employer-dashboard/jobs" },
+  { title: "Candidates", subtitle: "Applicant tracking", icon: IconUsers, to: "/employer-dashboard/candidates" },
+  { title: "Inbox", subtitle: "Messages", icon: IconInbox, to: "/employer-dashboard/inbox" },
+  { title: "Profile", subtitle: "Company details", icon: IconProfile, to: "/employer-dashboard/profile" },
+  { title: "Settings", subtitle: "Account settings", icon: IconSettings, to: "/employer-dashboard/settings" },
 ];
 
 const EmployerDashboard = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const fullName = localStorage.getItem("fullName") || "Employer";
   const email = localStorage.getItem("email");
-  const [jobPostings] = useState(initialPostings);
-  const [applicants] = useState(initialApplicants);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("All");
+  const initials = useMemo(() => {
+    return fullName
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase())
+      .join("") || "KW";
+  }, [fullName]);
 
-  // Track dashboard access time
+  const pageTitle = useMemo(() => {
+    const routeMap = {
+      "/employer-dashboard": "Dashboard",
+      "/employer-dashboard/jobs": "Jobs",
+      "/employer-dashboard/candidates": "Candidates",
+      "/employer-dashboard/inbox": "Inbox",
+      "/employer-dashboard/profile": "Profile",
+      "/employer-dashboard/settings": "Settings",
+    };
+
+    return routeMap[location.pathname] || "Dashboard";
+  }, [location.pathname]);
+
   useEffect(() => {
     auditLogService.recordDashboardAccess(email);
     auditLogService.logPageVisit("EMPLOYER_DASHBOARD", {
       email,
       fullName,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     return () => {
-      // Optional: Log when leaving dashboard
       auditLogService.logAction("LEAVE_DASHBOARD", {
         email,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     };
   }, [email, fullName]);
@@ -131,24 +150,6 @@ const EmployerDashboard = () => {
     navigate("/login");
   };
 
-  const metrics = useMemo(() => {
-    const active = jobPostings.filter((post) => post.status === "Active").length;
-    const total = applicants.length;
-    const views = 1830 + total * 24;
-    const conversion = `${Math.round((total / Math.max(active, 1)) * 8) + 12}%`;
-    return { active, total, views, conversion };
-  }, [jobPostings, applicants]);
-
-  const filteredApplicants = useMemo(() => {
-    return applicants.filter((app) => {
-      const matchText = `${app.name} ${app.skills} ${app.job}`.toLowerCase();
-      const query = search.toLowerCase();
-      const statusMatch = filter === "All" || app.status === filter;
-      return statusMatch && matchText.includes(query);
-    });
-  }, [applicants, search, filter]);
-
-
   return (
     <div className="employer-dashboard-page">
       <div className="dashboard-shell">
@@ -161,24 +162,34 @@ const EmployerDashboard = () => {
             </div>
           </div>
 
-          <div className="sidebar-profile">
-            <strong>{fullName}</strong>
-            <p>{initialProfile.companyName}</p>
-            <span>{initialProfile.location}</span>
+          <div className="sidebar-profile-card">
+            <div className="sidebar-profile">
+              <div className="sidebar-profile-avatar">{initials}</div>
+              <div>
+                <strong>{fullName}</strong>
+                <p>{initialProfile.companyName}</p>
+                <span>{initialProfile.location}</span>
+              </div>
+            </div>
           </div>
 
-          <nav className="sidebar-nav">
+          <nav className="sidebar-nav" aria-label="Employer dashboard navigation">
             {sidebarItems.map((item) => (
-              <button
+              <NavLink
                 key={item.title}
-                type="button"
-                className={`sidebar-item${item.active ? " active" : ""}`}>
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) => `sidebar-item${isActive ? " active" : ""}`}
+              >
                 <span className="sidebar-item-copy">
-                  <span className="sidebar-icon" aria-hidden="true" />
-                  <span>{item.title}</span>
+                  <span className="sidebar-icon" aria-hidden="true"><item.icon className="sidebar-icon-svg" /></span>
+                  <span className="sidebar-item-text">
+                    <strong>{item.title}</strong>
+                    <small>{item.subtitle}</small>
+                  </span>
                 </span>
                 <span className="sidebar-dot">›</span>
-              </button>
+              </NavLink>
             ))}
           </nav>
 
@@ -188,148 +199,30 @@ const EmployerDashboard = () => {
         </aside>
 
         <main className="dashboard-main">
-          <section className="dashboard-header">
+          <div className="dashboard-topbar">
             <div>
-              <p className="label">Employer dashboard</p>
-              <h1>Welcome back, {fullName}</h1>
-              <p>
-                Monitor hiring activity, review incoming applicants, and keep your KamerWork recruitment workflow moving forward.
-              </p>
+              <p className="topbar-kicker">Employer dashboard</p>
+              <h1>{pageTitle}</h1>
             </div>
-            <button className="button-primary" type="button">
-              Post new job
-            </button>
-          </section>
 
-          <section className="dashboard-metrics">
-            <article className="metric-card">
-              <span>Active jobs</span>
-              <strong>{metrics.active}</strong>
-              <small>Live positions on KamerWork</small>
-            </article>
-            <article className="metric-card">
-              <span>Total applicants</span>
-              <strong>{metrics.total}</strong>
-              <small>Candidates in your pipeline</small>
-            </article>
-            <article className="metric-card">
-              <span>Total views</span>
-              <strong>{metrics.views}</strong>
-              <small>Job and company page views</small>
-            </article>
-            <article className="metric-card">
-              <span>Conversion rate</span>
-              <strong>{metrics.conversion}</strong>
-              <small>Applications per active role</small>
-            </article>
-          </section>
+            <div className="dashboard-topbar-actions">
+              <label className="topbar-search">
+                <IconSearch className="topbar-search-icon" />
+                <input type="search" placeholder="Search dashboard" aria-label="Search dashboard" />
+              </label>
 
-          <section className="dashboard-charts">
-            <article className="chart-card">
-              <div className="chart-head">
-                <div>
-                  <h2>Job views</h2>
-                  <small>Past 30 days</small>
-                </div>
-                <span className="chart-tag">+14%</span>
-              </div>
-              <div className="chart-visual chart-bars">
-                {[30, 45, 36, 58, 42, 54, 68, 52].map((value, index) => (
-                  <span key={index} className="chart-bar" style={{ height: `${value}%` }} />
-                ))}
-              </div>
-              <div className="chart-footer">
-                <span>Mon</span>
-                <span>Wed</span>
-                <span>Fri</span>
-                <span>Sun</span>
-              </div>
-            </article>
+              <button className="topbar-icon-button" type="button" aria-label="Notifications">
+                <IconBell className="topbar-bell-icon" />
+                <span className="topbar-notification-dot" aria-hidden="true" />
+              </button>
 
-            <article className="chart-card">
-              <div className="chart-head">
-                <div>
-                  <h2>Applications received</h2>
-                  <small>Past 30 days</small>
-                </div>
-                <span className="chart-tag">+9%</span>
-              </div>
-              <div className="chart-visual chart-line">
-                <span className="line-point p1" />
-                <span className="line-point p2" />
-                <span className="line-point p3" />
-                <span className="line-point p4" />
-                <span className="line-point p5" />
-              </div>
-              <div className="chart-footer">
-                <span>Week 1</span>
-                <span>Week 2</span>
-                <span>Week 3</span>
-                <span>Week 4</span>
-              </div>
-            </article>
-          </section>
+              <button className="button-primary topbar-post-button" type="button">
+                + Post New Job
+              </button>
+            </div>
+          </div>
 
-          <section className="dashboard-overview">
-            <article className="overview-card jobs-card">
-              <div className="section-title">
-                <h2>Job postings</h2>
-                <small>Latest open roles</small>
-              </div>
-              <div className="jobs-list">
-                {jobPostings.map((post) => (
-                  <div key={post.id} className="job-item">
-                    <div>
-                      <strong>{post.title}</strong>
-                      <p>{post.location} • {post.type}</p>
-                    </div>
-                    <div className="job-item-meta">
-                      <span className={`job-tag ${post.status === "Active" ? "active" : "expired"}`}>
-                        {post.status}
-                      </span>
-                      <p>{post.applicants} applicants</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="overview-card applicants-card">
-              <div className="section-title">
-                <h2>Recent applicants</h2>
-                <small>Review top candidates</small>
-              </div>
-              <div className="applicant-filter-row">
-                <input
-                  type="search"
-                  placeholder="Search applicants"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                  <option value="All">All statuses</option>
-                  <option value="New">New</option>
-                  <option value="Viewed">Viewed</option>
-                  <option value="Contacted">Contacted</option>
-                  <option value="Rejected">Rejected</option>
-                </select>
-              </div>
-              <div className="applicant-row-list">
-                {filteredApplicants.slice(0, 5).map((app) => (
-                  <button key={app.id} type="button" className="applicant-row">
-                    <div>
-                      <strong>{app.name}</strong>
-                      <p>{app.job}</p>
-                    </div>
-                    <div className="applicant-row-meta">
-                      <span>{app.date}</span>
-                      <span className={statusColors[app.status]}>{app.status}</span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </article>
-          </section>
+          <Outlet />
         </main>
       </div>
     </div>

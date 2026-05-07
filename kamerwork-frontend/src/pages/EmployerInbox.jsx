@@ -7,12 +7,12 @@ const messages = [
 ];
 
 const EmployerInbox = () => (
-  <section className="overview-card">
+  <section className="overview-card inbox-card">
     <div className="section-title">
       <h2>Inbox</h2>
       <small>Messages from candidates and updates</small>
     </div>
-    <div className="jobs-list">
+    <div className="jobs-list jobs-list--full">
       {messages.map((message) => (
         <div key={message.id} className="job-item">
           <div>

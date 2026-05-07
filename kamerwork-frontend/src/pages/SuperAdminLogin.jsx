@@ -33,7 +33,7 @@ const SuperAdminLogin = () => {
       // In production, this would validate against your superadmin database
       
       // Hardcoded check for demo (replace with actual backend validation)
-      if (secretKey === process.env.REACT_APP_SUPERADMIN_KEY || secretKey === "SUPERADMIN_SECRET_2026") {
+      if (secretKey === import.meta.env.VITE_SUPERADMIN_KEY || secretKey === "superadmin-vyne-2026") {
         // Create a mock superadmin login response
         const mockResponse = {
           success: true,
@@ -105,7 +105,7 @@ const SuperAdminLogin = () => {
                 className="field-input"
                 name="email"
                 type="email"
-                placeholder="admin@example.com"
+                placeholder="admin@vyne.com"
                 required
               />
             </div>

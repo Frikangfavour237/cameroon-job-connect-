@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document(collection = "users")
 @Data
@@ -39,4 +40,36 @@ public class User {
     private LocalDateTime updatedAt;
     
     private LocalDateTime lastLogin;
+
+    private String city;
+
+    private String region;
+
+    private String headline;
+
+    private String summary;
+
+    private String yearsExperience;
+
+    private List<String> skills;
+
+    private List<WorkExperienceEntry> workExperience;
+
+    private List<EducationEntry> education;
+
+    private String cvFileName;
+
+    private LocalDateTime cvUpdatedAt;
+
+    private String profilePictureName;
+
+    private LocalDateTime profilePictureUpdatedAt;
+
+    private String companyName;
+
+    private String companyLocation;
+
+    private String companyDescription;
+
+    private String companyWebsite;
 }

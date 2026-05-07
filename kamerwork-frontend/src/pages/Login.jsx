@@ -46,7 +46,7 @@ const Login = ({ onForgotPassword, onRegister }) => {
         if (res.data.role === "EMPLOYER") {
           navigate("/employer-dashboard");
         } else {
-          navigate("/");
+          navigate("/employee-dashboard");
         }
       } else {
         setError(res.data.message || "Login failed");

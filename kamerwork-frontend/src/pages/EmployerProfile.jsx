@@ -5,12 +5,12 @@ const EmployerProfile = () => {
   const location = "Yaoundé, Cameroon";
   const description = "KamerWork Hiring is focused on matching local talent with high-impact jobs across Cameroon. We help employers hire faster with a strong candidate pipeline.";
   return (
-    <section className="overview-card">
+    <section className="overview-card profile-card">
       <div className="section-title">
         <h2>Company profile</h2>
         <small>Update your employer details</small>
       </div>
-      <div className="detail-box">
+      <div className="detail-box profile-details">
         <h4>Company</h4>
         <p>{companyName}</p>
         <h4>Location</h4>
